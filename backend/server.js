@@ -34,11 +34,15 @@ router.get('/sysinfo/cpu', function(req, res){
 		res.json({ cpu: stdout.replace(/\n$/,'') });
 	});
 });
+
 router.route('/pages')
 	// Create a page on POST at /api/pages
 	.post(function(req, res){
 		var page = new Page();
-		page.name = req.body.name;
+		page.title = req.body.title;
+		page.content = req.body.content;
+		page.author = req.body.author;
+		page.lastModified = new Date();
 
 		page.save(function(err){
 			if(err)
@@ -64,11 +68,15 @@ router.route('/pages/:page_id')
 			res.json(page);
 		});
 	})
+	// Update a specific page
 	.put(function(req, res){
 		Page.findById(req.params.page_id, function(err, page){
 			if(err)
 				res.send(err);
-			page.name = req.body.name;
+			page.title = req.body.title;
+			page.content = req.body.content;
+			page.author = req.body.author;
+			page.lastModified = new Date();
 
 			page.save(function(err){
 				if(err)
@@ -79,6 +87,7 @@ router.route('/pages/:page_id')
 
 		});
 	})
+	// Delete a specific page
 	.delete(function(req, res){
 		Page.remove({
 			_id: req.params.page_id
