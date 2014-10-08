@@ -1,0 +1,7 @@
+<h2>swigi pages:</h2>
+<pre ng-bind="vm.pages | json"></pre>
+<div ng-repeat="page in vm.pages">
+  <h3>{{ page.title }} <span class="label label-primary">{{ page.lastModified | date }}</span></h3>
+  <p class="text-muted">Author: {{ page.author }}</p>
+  <div btf-markdown="page.content"></div>
+</div>
