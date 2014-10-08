@@ -11,6 +11,8 @@ var Page 		= require('./app/models/page');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+
 var dbport = 27017;
 var port = process.env.PORT || 8080;
 var router = express.Router();
@@ -21,6 +23,8 @@ mongoose.connect('mongodb://86.52.78.30:27017/slacker-wiki');
 // Router middleware, handles all routes.
 router.use(function(req,res,next){
 	// do logging
+  	res.header("Access-Control-Allow-Origin", "*");
+  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	console.log("something happened");
 	next();
 })
